@@ -131,9 +131,11 @@ function afterFormLayout() {
 
     // form submit
     document.querySelector('.final-page__form').addEventListener('submit', (event) => {
-        console.log(event.target.checkValidity())
-        if (event.target.checkValidity()) {
+        if (event.target.checkValidity() || !policyCheckbox.checked) {
             event.preventDefault()
+        }
+        if (!policyCheckbox.checked) {
+            policyCheckbox.checked = true
         }
     })
 }
@@ -384,10 +386,15 @@ function renderImageQues(stepIndex, imagesLength) {
     layout.className = 'answer-images';
     layoutInnerCont.className = 'answer-images__group answer-images__group_layout-scroll';
     layout.appendChild(layoutInnerCont);
+    if (stepIndex == 2) {
+        addClass = "third-step"
+    } else {
+        addClass = ""
+    }
 
     for (let j = 0; j < imagesLength; j++) {
         layoutInnerCont.innerHTML += `
-        <div class="answer-images__answer-container answer-images__answer-container__type_square">
+        <div class="answer-images__answer-container answer-images__answer-container__type_square ${addClass}">
             <label class="b-radio radio">
                 <input type="radio" name="${radioNames[stepIndex]}" value="${variants[stepIndex][j]}">
                 <span class="check"></span>
