@@ -67,18 +67,17 @@ nextBtn.addEventListener('click', () => {
 // create functions for form
 function afterFormLayout() {
     // name input
-    let nameInput = document.querySelector('.input__name');
-    nameInput.addEventListener('focus', (event) => {
+    userName.addEventListener('focus', (event) => {
         let $this = event.target;
         if ($this.value == "") {
             $this.classList.add('is-danger')
         }
     })
-    nameInput.addEventListener('input', (event) => {
+    userName.addEventListener('input', (event) => {
         let $this = event.target;
         $this.classList.remove('is-danger')
     })
-    nameInput.addEventListener('blur', (event) => {
+    userName.addEventListener('blur', (event) => {
         let $this = event.target;
         if ($this.value == "") {
             $this.classList.add('is-danger')
@@ -104,7 +103,6 @@ function afterFormLayout() {
     })
 
     // phone number field
-
     VuePhoneNumberInput_phone_number.addEventListener('focus', (event) => {
         let $this = event.target;
         document.querySelector('.phone-number-input').classList.remove('phone-number-input_has-error')
@@ -131,8 +129,10 @@ function afterFormLayout() {
 
     // form submit
     document.querySelector('.final-page__form').addEventListener('submit', (event) => {
-        if (event.target.checkValidity() || !policyCheckbox.checked) {
-            event.preventDefault()
+        if (event.target.checkValidity()) {
+            event.preventDefault();
+            answers.phoneNum = VuePhoneNumberInput_country_selector.value + '' + VuePhoneNumberInput_phone_number.value;
+            answers.userName = userName.value;
         }
         if (!policyCheckbox.checked) {
             policyCheckbox.checked = true
