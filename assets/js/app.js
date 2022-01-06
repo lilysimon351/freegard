@@ -62,11 +62,104 @@ nextBtn.addEventListener('click', () => {
     toNextSlide()
 })
 
-
-
-
 // ------------- FUNCTIONS ------------- \\
 
+// create functions for form
+function afterFormLayout() {
+    // name input
+    let nameInput = document.querySelector('.input__name');
+    nameInput.addEventListener('focus', (event) => {
+        let $this = event.target;
+        if ($this.value == "") {
+            $this.classList.add('is-danger')
+        }
+    })
+    nameInput.addEventListener('input', (event) => {
+        let $this = event.target;
+        $this.classList.remove('is-danger')
+    })
+    nameInput.addEventListener('blur', (event) => {
+        let $this = event.target;
+        if ($this.value == "") {
+            $this.classList.add('is-danger')
+        }
+    })
+
+    // country select click
+    let countrySelect = document.querySelector('.country-selector');
+    countrySelect.addEventListener('click', (event) => {
+        let $this = event.target;
+        document.querySelector('.country-selector').classList.toggle('is-focused');
+    })
+
+    // country list item click
+    document.querySelector('.country-list').addEventListener('click', (event) => {
+        let $this = event.target,
+            index = +$this.getAttribute('data-index');
+        VuePhoneNumberInput_country_selector.value = '+' + countries.code[index];
+        document.querySelector('.flag__name').className = "flag__name iti-flag-small iti-flag " + countries.shortName[index]
+        document.querySelector('.selected-country').classList.remove('selected-country');
+        $this.parentElement.classList.add('selected-country');
+        VuePhoneNumberInput_phone_number.focus()
+    })
+
+    // phone number field
+
+    VuePhoneNumberInput_phone_number.addEventListener('focus', (event) => {
+        let $this = event.target;
+        document.querySelector('.phone-number-input').classList.remove('phone-number-input_has-error')
+        $this.parentElement.classList.add('is-focused');
+    })
+    VuePhoneNumberInput_phone_number.addEventListener('blur', (event) => {
+        let $this = event.target;
+        if ($this.value != "") {
+            $this.parentElement.classList.remove('is-focused');
+        } else {
+            document.querySelector('.phone-number-input').classList.add('phone-number-input_has-error')
+        }
+    })
+
+    // return only  numbers
+    VuePhoneNumberInput_phone_number.addEventListener('keydown', (event) => {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        var keys = [8, 9, 13, 37, 38, 39, 40, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 0, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105];
+        var validIndex = keys.indexOf(charCode);
+        if (validIndex == -1) {
+            event.preventDefault();
+        }
+    })
+
+    // form submit
+    document.querySelector('.final-page__form').addEventListener('submit', (event) => {
+        console.log(event.target.checkValidity())
+        if (event.target.checkValidity()) {
+            event.preventDefault()
+        }
+    })
+}
+
+// create country item
+function createCountryItems() {
+
+    let template = document.querySelector('#country-item').content,
+        fragment = document.createDocumentFragment(),
+        countriesCont = document.querySelector('.country-list');
+
+    countries.name.forEach((countryName, index) => {
+        let currElem = template.cloneNode(true).children[0],
+            mainElem = currElem.querySelector('.dots-text');
+
+        currElem.querySelector('.iti-flag').classList.add(countries.shortName[index]);
+        mainElem.setAttribute('data-index', index);
+        mainElem.textContent = countryName;
+        if (countries.shortName[index] == 'ru') {
+            mainElem.parentElement.classList.add('selected-country');
+        }
+
+        fragment.appendChild(currElem);
+    });
+    countriesCont.appendChild(fragment);
+}
 
 // change progress bar percent
 function changeProgressBar() {
@@ -222,25 +315,27 @@ function changeQuestion() {
 function showForm() {
     let template = document.getElementById('quiz-form').content.cloneNode(true).children[0];
 
-    document.querySelector('.quiz').classList.add('quiz_animation_slide-leave-active', 'quiz_animation_slide-leave-to');
+    document.querySelector('.quiz').classList.add('quiz__question_animation_forward-leave-to', 'quiz__question_animation_forward-leave-active');
     setTimeout(() => {
             document.querySelector('.quiz-container').innerHTML = '';
             document.querySelector('.quiz-container').append(template);
-            document.querySelector('.quiz__lead-form').classList.add('quiz__question_animation_forward-enter-active', 'quiz__question_animation_forward-enter-to')
+            document.querySelector('.quiz__lead-form').classList.add('quiz__lead-form_enter')
 
             if (document.querySelector('.lead-form__button')) {
-                document.querySelector('.lead-form__button').addEventListener('click', (event) => {
-                    let template = document.getElementById('thanks').content.cloneNode(true).children[0];
+                createCountryItems();
+                afterFormLayout()
+                    // document.querySelector('.lead-form__button').addEventListener('click', (event) => {
+                    //     let template = document.getElementById('thanks').content.cloneNode(true).children[0];
 
-                    setTimeout(() => {
-                        document.querySelector('.quiz-container').innerHTML = '';
-                        document.querySelector('.quiz-container').append(template);
-                    }, animDuration + 100)
-                })
+                //     setTimeout(() => {
+                //         document.querySelector('.quiz-container').innerHTML = '';
+                //         document.querySelector('.quiz-container').append(template);
+                //     }, animDuration + 100)
+                // })
             }
 
 
-        }, animDuration + 100)
+        }, animDuration + 200)
         // form submit
 
 }

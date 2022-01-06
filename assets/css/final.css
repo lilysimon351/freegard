@@ -2921,7 +2921,8 @@ path[data-v-2be8f1c4] {
 .final-page_horizontal {
     width: 100%;
     display: grid;
-    grid-template-columns: auto 416px
+    grid-template-columns: auto 416px;
+    background: white;
 }
 
 @media (max-width:1200px) {
@@ -3190,7 +3191,6 @@ path[data-v-2be8f1c4] {
     .final-page_horizontal {
         display: block;
     }
-    .final-page_horizontal .final-page__content,
     .final-page_horizontal .final-page__header-container {
         max-width: 630px;
         margin: auto;
@@ -3210,8 +3210,60 @@ path[data-v-2be8f1c4] {
     .final-page_horizontal .final-page__bonuses-container,
     .final-page_horizontal .final-page__form {
         padding: 0 1rem 1.5rem;
+        margin-bottom: 0;
     }
     .final-page_horizontal .final-page__form {
         height: auto;
     }
+}
+
+
+/* added  */
+
+.country-selector .field-input[data-v-7e349bb5] {
+    z-index: 1;
+}
+
+.control .icon.is-right {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.control .is-danger~.icon.is-right {
+    opacity: 1;
+    visibility: visible;
+}
+
+.input-phone-number.is-focused {
+    z-index: 1;
+}
+
+.country-selector.is-focused #VuePhoneNumberInput_country_selector,
+.input-phone-number.is-focused #VuePhoneNumberInput_phone_number {
+    border: 1px solid dodgerblue !important;
+}
+
+.phone-number-input_has-error .input-phone-number.is-focused #VuePhoneNumberInput_phone_number {
+    border: 1px solid var(--color-danger) !important;
+}
+
+.phone-number-input_has-error .input-phone-number [for='VuePhoneNumberInput_phone_number'] {
+    opacity: 0!important;
+}
+
+.country-selector.is-focused [for='VuePhoneNumberInput_country_selector'] {
+    color: dodgerblue;
+    pointer-events: none;
+}
+
+.country-selector.is-focused .country-selector-arrow {
+    pointer-events: none;
+}
+
+.country-selector:not(.is-focused) .country-list[data-v-7e349bb5] {
+    display: none;
+}
+
+.country-selector .country-list-item.selected-country[data-v-7e349bb5] {
+    background-color: dodgerblue;
 }

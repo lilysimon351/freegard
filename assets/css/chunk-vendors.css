@@ -1,18 +1,18 @@
 @font-face {
     font-family: "Gilroy";
-    src: url(assets/fonts/Gilroy/Regular.woff2);
+    src: url(../fonts/Gilroy/Regular.woff2);
     font-weight: 400;
 }
 
 @font-face {
     font-family: "Gilroy";
-    src: url(assets/fonts/Gilroy/Medium.woff2);
+    src: url(../fonts/Gilroy/Medium.woff2);
     font-weight: 500;
 }
 
 @font-face {
     font-family: "Gilroy";
-    src: url(assets/fonts/Gilroy/SemiBold2.woff2);
+    src: url(../fonts/Gilroy/SemiBold2.woff2);
     font-weight: bold;
 }
 
@@ -28,6 +28,8 @@
     --color-alpha3: rgba(81, 185, 5, 0.05);
     --color-text: #fff;
     --color-text2: #51b905;
+    --color-danger: #d10a34;
+    --color-success: #52bc77;
     --gradient-main: 331deg, rgb(36, 85, 2), rgb(128, 250, 41);
     --color-primary-text-button: #fff;
     --font: "Gilroy";
